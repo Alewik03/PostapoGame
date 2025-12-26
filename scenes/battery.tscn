@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bh0gfq5l462a"]
+
+[ext_resource type="Texture2D" uid="uid://cvyh0ajwcx808" path="res://Sprites/icon.svg" id="1_bavnn"]
+[ext_resource type="Script" uid="uid://c8el14vri7ufj" path="res://Scripts/BatteryScript.gd" id="1_ytmnr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytmnr"]
+size = Vector2(70, 23)
+
+[sub_resource type="Gradient" id="Gradient_y10rp"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_op1cn"]
+gradient = SubResource("Gradient_y10rp")
+fill = 1
+fill_from = Vector2(0.48290598, 0.508547)
+fill_to = Vector2(0.508547, 0.12820514)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_ytmnr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5625, 0.19140625)
+texture = ExtResource("1_bavnn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ytmnr")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0.5, 0)
+scale = Vector2(1.015625, 1)
+texture = SubResource("GradientTexture2D_op1cn")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

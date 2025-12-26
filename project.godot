@@ -15,6 +15,10 @@ run/main_scene="uid://clu5jsweh7273"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
+[global_group]
+
+player=""
+
 [input]
 
 left={

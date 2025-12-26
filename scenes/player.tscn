@@ -1,16 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwq0p4bniwele"]
 
 [ext_resource type="Texture2D" uid="uid://cvyh0ajwcx808" path="res://Sprites/icon.svg" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://cxnurqt0v18ht" path="res://scenes/PlayerScript.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://cxnurqt0v18ht" path="res://Scripts/PlayerScript.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://brv5auv7jqkgf" path="res://Sprites/FlashlightBeam.png" id="3_qhqgy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
 radius = 62.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(0.4, 0.4)
 script = ExtResource("1_g2els")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.895, 1.895)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5707964
@@ -23,7 +25,7 @@ shape = SubResource("CircleShape2D_qhqgy")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(53, 0)
 rotation = 1.5707964
-energy = 3.0
+energy = 1.5
 shadow_enabled = true
 texture = ExtResource("3_qhqgy")
 offset = Vector2(0, -247.21)

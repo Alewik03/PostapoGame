@@ -11,3 +11,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func _on_player_battery_changed(new_value: float) -> void:
+	$CanvasLayer/Control/Label.text = "Bateria: " + str(ceil(new_value)) + "%"
