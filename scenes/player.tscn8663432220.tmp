@@ -10,6 +10,15 @@ radius = 62.0
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_g2els")
 
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(216.18509, 1.5359248)
+rotation = 1.5707964
+scale = Vector2(0.64394855, 0.78462946)
+energy = 2.0
+shadow_enabled = true
+shadow_filter = 2
+texture = ExtResource("3_qhqgy")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -19,11 +28,3 @@ texture = ExtResource("1_3vyb7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5707964
 shape = SubResource("CircleShape2D_qhqgy")
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(53, 0)
-rotation = 1.5707964
-energy = 3.0
-shadow_enabled = true
-texture = ExtResource("3_qhqgy")
-offset = Vector2(0, -247.21)
