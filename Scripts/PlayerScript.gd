@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 #Wlaczanie i wylaczanie latarki
 func _input(event):
 	if event.is_action_pressed("Flashlight"):
-		$PointLight2D.visible = !$PointLight2D.visible
+		$FlashlightBeam.visible = !$FlashlightBeam.visible
 		
 		
 func _physics_process(delta: float) -> void:
@@ -44,21 +44,21 @@ func _physics_process(delta: float) -> void:
 		
 	#Skrypt do latarki, jesli latarka ejst visible to ciagnie baterie i jesli bateria jest ponizej
 	#25% to latarka ma 8% szans ze zniknie w kazdej klatce
-	if $PointLight2D.visible == true:
+	if $FlashlightBeam.visible == true:
 		battery_level -= drain_speed * delta
 		battery_changed.emit(battery_level)
 		if battery_level < 25	:
 			if randf() > 0.92:
-				$PointLight2D.enabled = false
+				$FlashlightBeam.enabled = false
 			else:
-				$PointLight2D.enabled = true
+				$FlashlightBeam.enabled = true
 		else:
-			$PointLight2D.enabled = true
+			$FlashlightBeam.enabled = true
 	#nakladamy limity dla latarki
 	battery_level = clamp(battery_level, 0, 100)
 	#jesli latarka bedzie miala 0% to wylaczamy ja calkowicie
 	if battery_level <= 0:
-		$PointLight2D.enabled = false
+		$FlashlightBeam.enabled = false
 	
 	var direction = Input.get_vector("left", "right", "up", "down")
 	velocity = direction * speed

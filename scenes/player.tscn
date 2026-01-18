@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwq0p4bniwele"]
+[gd_scene load_steps=7 format=3 uid="uid://bwq0p4bniwele"]
 
 [ext_resource type="Texture2D" uid="uid://cvyh0ajwcx808" path="res://Sprites/icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cxnurqt0v18ht" path="res://Scripts/PlayerScript.gd" id="1_g2els"]
@@ -6,6 +6,15 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
 radius = 62.0
+
+[sub_resource type="Gradient" id="Gradient_qhqgy"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dqkch"]
+gradient = SubResource("Gradient_qhqgy")
+fill = 1
+fill_from = Vector2(0.4871795, 0.5)
+fill_to = Vector2(0.8162393, 0.123931624)
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(0.4, 0.4)
@@ -22,10 +31,14 @@ texture = ExtResource("1_3vyb7")
 rotation = 1.5707964
 shape = SubResource("CircleShape2D_qhqgy")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="FlashlightBeam" type="PointLight2D" parent="."]
 position = Vector2(53, 0)
 rotation = 1.5707964
-energy = 1.5
 shadow_enabled = true
 texture = ExtResource("3_qhqgy")
 offset = Vector2(0, -247.21)
+
+[node name="SphericalPlayerView" type="PointLight2D" parent="."]
+position = Vector2(-4.7683716e-07, 9.094947e-13)
+scale = Vector2(4.6093745, 4.6716638)
+texture = SubResource("GradientTexture2D_dqkch")

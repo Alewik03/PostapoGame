@@ -44,18 +44,20 @@ tile_set = SubResource("TileSet_dlmi6")
 position = Vector2(429, 319)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.31431612, 0.31431612, 0.31431603, 1)
+color = Color(0.31801978, 0.3180198, 0.31801972, 1)
 
 [node name="UI" parent="." instance=ExtResource("3_45a0w")]
 
-[node name="Area2D" parent="." instance=ExtResource("4_o0jlf")]
-position = Vector2(407, -189)
+[node name="Baterie" type="Node" parent="."]
 
-[node name="Area2D2" parent="." instance=ExtResource("4_o0jlf")]
+[node name="Area2D2" parent="Baterie" instance=ExtResource("4_o0jlf")]
 position = Vector2(751, -689)
 
-[node name="Area2D3" parent="." instance=ExtResource("4_o0jlf")]
+[node name="Area2D3" parent="Baterie" instance=ExtResource("4_o0jlf")]
 position = Vector2(-887, -420)
+
+[node name="Area2D" parent="Baterie" instance=ExtResource("4_o0jlf")]
+position = Vector2(407, -189)
 
 [node name="Enemy" parent="." instance=ExtResource("6_wo8c1")]
 position = Vector2(-148, -281)
