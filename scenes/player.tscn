@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwq0p4bniwele"]
+[gd_scene format=3 uid="uid://bwq0p4bniwele"]
 
 [ext_resource type="Texture2D" uid="uid://cvyh0ajwcx808" path="res://Sprites/icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cxnurqt0v18ht" path="res://Scripts/PlayerScript.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://brv5auv7jqkgf" path="res://Sprites/FlashlightBeam.png" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://d08w06jpfqkj6" path="res://scenes/health_component.tscn" id="4_dqkch"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
 radius = 62.0
@@ -16,29 +17,42 @@ fill = 1
 fill_from = Vector2(0.4871795, 0.5)
 fill_to = Vector2(0.8162393, 0.123931624)
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[sub_resource type="Animation" id="Animation_dqkch"]
+resource_name = "death"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qlg0r"]
+_data = {
+&"death": SubResource("Animation_dqkch")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=1455583195 groups=["player"]]
 scale = Vector2(0.4, 0.4)
 script = ExtResource("1_g2els")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=340989469]
 zoom = Vector2(1.895, 1.895)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=160240044]
 rotation = 1.5707964
 texture = ExtResource("1_3vyb7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=820528330]
 rotation = 1.5707964
 shape = SubResource("CircleShape2D_qhqgy")
 
-[node name="FlashlightBeam" type="PointLight2D" parent="."]
+[node name="FlashlightBeam" type="PointLight2D" parent="." unique_id=2129834743]
 position = Vector2(53, 0)
 rotation = 1.5707964
 shadow_enabled = true
 texture = ExtResource("3_qhqgy")
 offset = Vector2(0, -247.21)
 
-[node name="SphericalPlayerView" type="PointLight2D" parent="."]
+[node name="SphericalPlayerView" type="PointLight2D" parent="." unique_id=2044532121]
 position = Vector2(-4.7683716e-07, 9.094947e-13)
 scale = Vector2(4.6093745, 4.6716638)
 texture = SubResource("GradientTexture2D_dqkch")
+
+[node name="HealthComponent" parent="." unique_id=1515792640 instance=ExtResource("4_dqkch")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=736399224]
+libraries/ = SubResource("AnimationLibrary_qlg0r")

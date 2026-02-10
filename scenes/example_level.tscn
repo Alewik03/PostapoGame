@@ -44,7 +44,7 @@ tile_set = SubResource("TileSet_dlmi6")
 position = Vector2(429, 319)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.31801978, 0.3180198, 0.31801972, 1)
+color = Color(0.39688924, 0.39688927, 0.3968891, 1)
 
 [node name="UI" parent="." instance=ExtResource("3_45a0w")]
 
