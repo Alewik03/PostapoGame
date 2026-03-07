@@ -7,6 +7,7 @@ var Initspeed = 100
 var speed = Initspeed
 var sprint = 200
 var crouch = 50
+var alive = true
 
 #zmienne latarki
 var battery_level = 100
@@ -23,17 +24,23 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if alive == false: #blokujemy mozliwosc poruszania sie gracza jesli umarl
+		return
 	var mouse_pos = get_global_mouse_position()
 	var target_angle = (mouse_pos - global_position).angle()
 	rotation = lerp_angle(rotation, target_angle, rotation_speed * delta)
 	
 #Wlaczanie i wylaczanie latarki
 func _input(event):
+	if alive == false: #blokujemy mozliwosc poruszania sie gracza jesli umarl
+		return
 	if event.is_action_pressed("Flashlight"):
 		$FlashlightBeam.visible = !$FlashlightBeam.visible
 		
 		
 func _physics_process(delta: float) -> void:
+	if alive == false: #blokujemy mozliwosc poruszania sie gracza jesli umarl
+		return
 	#Sprawdzanie jaka forme ruchu wykonuje postac
 	if Input.is_action_pressed("crouch"):
 		speed = crouch
@@ -69,3 +76,9 @@ func add_battery(amount: float) -> void:
 	battery_level = clamp(battery_level, 0, 100)
 	battery_changed.emit(battery_level)
 	print("Podniesiono baterie!")
+
+
+func _on_health_component_died() -> void:
+	alive = false
+	$AnimationPlayer.play("death")
+	
