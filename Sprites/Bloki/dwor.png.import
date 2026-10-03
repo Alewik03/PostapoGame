@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3q7vmnfshnl0"
-path="res://.godot/imported/stone.png-930a59df1cb0ccf1545e428c6900af00.ctex"
+uid="uid://bsf4qh2dxv12w"
+path="res://.godot/imported/dwor.png-852ab0d636c78b81bc00840ec565e1eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/stone.png"
-dest_files=["res://.godot/imported/stone.png-930a59df1cb0ccf1545e428c6900af00.ctex"]
+source_file="res://Sprites/Bloki/dwor.png"
+dest_files=["res://.godot/imported/dwor.png-852ab0d636c78b81bc00840ec565e1eb.ctex"]
 
 [params]
 

@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh0gfq5l462a"]
+[gd_scene format=3 uid="uid://bh0gfq5l462a"]
 
-[ext_resource type="Texture2D" uid="uid://cvyh0ajwcx808" path="res://Sprites/icon.svg" id="1_bavnn"]
+[ext_resource type="Texture2D" uid="uid://cvyh0ajwcx808" path="res://Sprites/Postacie/icon.svg" id="1_bavnn"]
 [ext_resource type="Script" uid="uid://c8el14vri7ufj" path="res://Scripts/BatteryScript.gd" id="1_ytmnr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ytmnr"]

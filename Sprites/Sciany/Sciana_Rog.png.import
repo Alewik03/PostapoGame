@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brv5auv7jqkgf"
-path="res://.godot/imported/FlashlightBeam.png-5b2dddd37e54b766a22e464a65f94cb3.ctex"
+uid="uid://cmusdlr2l3xss"
+path="res://.godot/imported/Sciana_Rog.png-14a9d97a6c75816cab61c24ed970422d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/FlashlightBeam.png"
-dest_files=["res://.godot/imported/FlashlightBeam.png-5b2dddd37e54b766a22e464a65f94cb3.ctex"]
+source_file="res://Sprites/Sciany/Sciana_Rog.png"
+dest_files=["res://.godot/imported/Sciana_Rog.png-14a9d97a6c75816cab61c24ed970422d.ctex"]
 
 [params]
 

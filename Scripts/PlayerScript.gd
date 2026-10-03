@@ -2,83 +2,97 @@ extends CharacterBody2D
 
 signal battery_changed(new_value)
 
-#Zmienne szybkosci
+# Zmienne szybkości
 var Initspeed = 100
 var speed = Initspeed
 var sprint = 200
 var crouch = 50
 var alive = true
 
-#zmienne latarki
+# Zmienne latarki
 var battery_level = 100
 var drain_speed = 10
-#pozostałe zmienne
+
+# Pozostałe zmienne
 @export var rotation_speed = 10.0
 
+@onready var torso_node: Node2D = $Torso_Node2D
+@onready var legs_sprite: AnimatedSprite2D = $Legs_AnimatedSprite2D
+@onready var flashlight_beam = $Torso_Node2D/FlashlightBeam
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if alive == false: #blokujemy mozliwosc poruszania sie gracza jesli umarl
+	if not alive:
 		return
+		
+	# Obracamy TYLKO tułów (i podpiętą do niego latarkę) w stronę myszki
 	var mouse_pos = get_global_mouse_position()
 	var target_angle = (mouse_pos - global_position).angle()
-	rotation = lerp_angle(rotation, target_angle, rotation_speed * delta)
-	
-#Wlaczanie i wylaczanie latarki
-func _input(event):
-	if alive == false: #blokujemy mozliwosc poruszania sie gracza jesli umarl
+	torso_node.rotation = lerp_angle(torso_node.rotation, target_angle, rotation_speed * delta)
+
+func _input(event: InputEvent) -> void:
+	if not alive:
 		return
 	if event.is_action_pressed("Flashlight"):
-		$FlashlightBeam.visible = !$FlashlightBeam.visible
-		
-		
+		flashlight_beam.visible = !flashlight_beam.visible
+
 func _physics_process(delta: float) -> void:
-	if alive == false: #blokujemy mozliwosc poruszania sie gracza jesli umarl
+	if not alive:
 		return
-	#Sprawdzanie jaka forme ruchu wykonuje postac
+		
+	# Sprawdzanie trybu ruchu
 	if Input.is_action_pressed("crouch"):
 		speed = crouch
 	elif Input.is_action_pressed("sprint"):
 		speed = sprint
 	else:
 		speed = Initspeed
-		
-	#Skrypt do latarki, jesli latarka ejst visible to ciagnie baterie i jesli bateria jest ponizej
-	#25% to latarka ma 8% szans ze zniknie w kazdej klatce
-	if $FlashlightBeam.visible == true:
+
+	# Obsługa baterii latarki
+	if flashlight_beam.visible:
 		battery_level -= drain_speed * delta
 		battery_changed.emit(battery_level)
-		if battery_level < 25	:
-			if randf() > 0.92:
-				$FlashlightBeam.enabled = false
-			else:
-				$FlashlightBeam.enabled = true
+		if battery_level < 25:
+			flashlight_beam.enabled = (randf() <= 0.92)
 		else:
-			$FlashlightBeam.enabled = true
-	#nakladamy limity dla latarki
+			flashlight_beam.enabled = true
+	else:
+		flashlight_beam.enabled = false
+		
 	battery_level = clamp(battery_level, 0, 100)
-	#jesli latarka bedzie miala 0% to wylaczamy ja calkowicie
 	if battery_level <= 0:
-		$FlashlightBeam.enabled = false
-	
+		flashlight_beam.enabled = false
+
+	# Ruch i animacja nóg
 	var direction = Input.get_vector("left", "right", "up", "down")
 	velocity = direction * speed
 	move_and_slide()
-#Funkcja do baterii, jesli podniesiemy baterie to zwiekszamy energie latarki o 50
+	
+	_update_legs(direction)
+
+func _update_legs(direction: Vector2) -> void:
+	if direction != Vector2.ZERO:
+		# Obracamy nogi w stronę, w którą faktycznie idziemy (WASD)
+		legs_sprite.rotation = direction.angle()
+		
+		# Dopasowujemy prędkość animacji do prędkości chodu/biegu
+		if speed == sprint:
+			legs_sprite.speed_scale = 1.5
+		elif speed == crouch:
+			legs_sprite.speed_scale = 0.6
+		else:
+			legs_sprite.speed_scale = 1.0
+			
+		legs_sprite.play("walk")
+	else:
+		legs_sprite.play("idle")
+
 func add_battery(amount: float) -> void:
-	battery_level += amount
-	battery_level = clamp(battery_level, 0, 100)
+	battery_level = clamp(battery_level + amount, 0, 100)
 	battery_changed.emit(battery_level)
 	print("Podniesiono baterie!")
 
-
 func _on_health_component_died() -> void:
 	alive = false
-	$AnimationPlayer.play("death")
-	
+	if has_node("AnimationPlayer"):
+		$AnimationPlayer.play("death")

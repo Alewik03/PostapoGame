@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://bwq0p4bniwele" path="res://scenes/player.tscn" id="1_en011"]
 [ext_resource type="Script" uid="uid://btlnb7hsfl2w3" path="res://Scripts/example_levelScript.gd" id="1_xest0"]
 [ext_resource type="PackedScene" uid="uid://4cle2x0rt1sr" path="res://scenes/UI.tscn" id="3_45a0w"]
-[ext_resource type="Texture2D" uid="uid://bsq6xs8f4lhh5" path="res://Sprites/sand.png" id="4_notra"]
+[ext_resource type="Texture2D" uid="uid://bsq6xs8f4lhh5" path="res://Sprites/Bloki/sand.png" id="4_notra"]
 [ext_resource type="PackedScene" uid="uid://bh0gfq5l462a" path="res://scenes/battery.tscn" id="4_o0jlf"]
-[ext_resource type="Texture2D" uid="uid://3q7vmnfshnl0" path="res://Sprites/stone.png" id="5_wo8c1"]
+[ext_resource type="Texture2D" uid="uid://3q7vmnfshnl0" path="res://Sprites/Bloki/stone.png" id="5_wo8c1"]
 [ext_resource type="PackedScene" uid="uid://dp6rch5hdg4o4" path="res://scenes/enemy.tscn" id="6_wo8c1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_notra"]
@@ -46,7 +46,7 @@ tile_set = SubResource("TileSet_dlmi6")
 position = Vector2(429, 319)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1548496874]
-color = Color(0.39688924, 0.39688927, 0.3968891, 1)
+color = Color(0.3665946, 0.3665946, 0.36659458, 1)
 
 [node name="UI" parent="." unique_id=389736313 instance=ExtResource("3_45a0w")]
 

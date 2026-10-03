@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://40u6rcrcnl3w"
-path="res://.godot/imported/enemy.png-41fe8dc360e641bde1ffa5e18678b763.ctex"
+uid="uid://bhdxtnosqwabr"
+path="res://.godot/imported/Sciana_Koniec.png-08417199b4722654b4b4c8d8f3f7b18f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/enemy.png"
-dest_files=["res://.godot/imported/enemy.png-41fe8dc360e641bde1ffa5e18678b763.ctex"]
+source_file="res://Sprites/Sciany/Sciana_Koniec.png"
+dest_files=["res://.godot/imported/Sciana_Koniec.png-08417199b4722654b4b4c8d8f3f7b18f.ctex"]
 
 [params]
 

@@ -1,12 +1,62 @@
 [gd_scene format=3 uid="uid://bwq0p4bniwele"]
 
-[ext_resource type="Texture2D" uid="uid://cvyh0ajwcx808" path="res://Sprites/icon.svg" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cxnurqt0v18ht" path="res://Scripts/PlayerScript.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://brv5auv7jqkgf" path="res://Sprites/FlashlightBeam.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bs8onhjjkxoke" path="res://Sprites/Postacie/NogiGlownaPostacSpriteSheet.png" id="2_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://brv5auv7jqkgf" path="res://Sprites/Postacie/FlashlightBeam.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bn3ojaal8jye7" path="res://Sprites/Postacie/PostacGlownyBohater.png" id="3_qlg0r"]
 [ext_resource type="PackedScene" uid="uid://d08w06jpfqkj6" path="res://scenes/health_component.tscn" id="4_dqkch"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qhqgy"]
-radius = 62.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("2_qlg0r")
+region = Rect2(0, 0, 37, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("2_qlg0r")
+region = Rect2(0, 0, 37, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("2_qlg0r")
+region = Rect2(37, 0, 37, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
+atlas = ExtResource("2_qlg0r")
+region = Rect2(74, 0, 37, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
+atlas = ExtResource("2_qlg0r")
+region = Rect2(111, 0, 37, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d2wvv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlg0r"]
+radius = 13.0
+height = 26.0
 
 [sub_resource type="Gradient" id="Gradient_qhqgy"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -22,7 +72,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/path = NodePath("Torso_Node2D/Torso_Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -34,7 +84,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/path = NodePath("Torso_Node2D/Torso_Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -62,7 +112,7 @@ length = 1.0333333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/path = NodePath("Torso_Node2D/Torso_Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -74,7 +124,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/path = NodePath("Torso_Node2D/Torso_Sprite2D:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -96,37 +146,49 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 1), Color(0.41981313, 0.41981313, 0.4198131, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_3v2ag"]
+resource_name = "walk"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qlg0r"]
 _data = {
 &"RESET": SubResource("Animation_qlg0r"),
-&"death": SubResource("Animation_dqkch")
+&"death": SubResource("Animation_dqkch"),
+&"walk": SubResource("Animation_3v2ag")
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=1455583195 groups=["player"]]
-scale = Vector2(0.4, 0.4)
 script = ExtResource("1_g2els")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=340989469]
-zoom = Vector2(1.895, 1.895)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=160240044]
-rotation = 1.5707964
-texture = ExtResource("1_3vyb7")
+[node name="Legs_AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2077688562]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_d2wvv")
+animation = &"walk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=820528330]
-rotation = 1.5707964
-shape = SubResource("CircleShape2D_qhqgy")
+[node name="Torso_Node2D" type="Node2D" parent="." unique_id=351237871]
+scale = Vector2(0.99999994, 0.99999994)
 
-[node name="FlashlightBeam" type="PointLight2D" parent="." unique_id=2129834743]
-position = Vector2(53, 0)
+[node name="Torso_Sprite2D" type="Sprite2D" parent="Torso_Node2D" unique_id=160240044]
+texture_filter = 1
 rotation = 1.5707964
+texture = ExtResource("3_qlg0r")
+
+[node name="FlashlightBeam" type="PointLight2D" parent="Torso_Node2D" unique_id=2129834743]
+position = Vector2(15.56449, 0.99999815)
+rotation = 1.5707964
+scale = Vector2(0.36579493, 0.44533938)
 shadow_enabled = true
 texture = ExtResource("3_qhqgy")
 offset = Vector2(0, -247.21)
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=820528330]
+position = Vector2(2, 1)
+shape = SubResource("CapsuleShape2D_qlg0r")
+
 [node name="SphericalPlayerView" type="PointLight2D" parent="." unique_id=2044532121]
 position = Vector2(-4.7683716e-07, 9.094947e-13)
-scale = Vector2(4.6093745, 4.6716638)
+scale = Vector2(1.429, 1.449)
 texture = SubResource("GradientTexture2D_dqkch")
 
 [node name="HealthComponent" parent="." unique_id=1515792640 instance=ExtResource("4_dqkch")]

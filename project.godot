@@ -15,9 +15,16 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="PostapoGame"
-run/main_scene="uid://clu5jsweh7273"
+run/main_scene="uid://cbg1ytg04115a"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://Sprites/icon.svg"
+config/icon="res://Sprites/Postacie/icon.svg"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/mode=3
+window/stretch/mode="canvas_items"
 
 [global_group]
 
@@ -63,6 +70,7 @@ crouch={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 lights_and_shadows/tighter_shadow_caster_culling=false
