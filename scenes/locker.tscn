@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b4uspgskj8nnp"]
+
+[ext_resource type="Texture2D" uid="uid://cvjc3f2qt2k02" path="res://Sprites/Dekoracje/szafka.png" id="1_46kxn"]
+[ext_resource type="Script" uid="uid://duv0wp5b8u28e" path="res://Scripts/LockerScript.gd" id="1_byg57"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_byg57"]
+size = Vector2(62, 25)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewwd3"]
+size = Vector2(73, 51)
+
+[node name="Locker_StaticBody2D" type="StaticBody2D" unique_id=192442198]
+script = ExtResource("1_byg57")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1812857261]
+texture = ExtResource("1_46kxn")
+
+[node name="Locker_CollisionShape2D" type="CollisionShape2D" parent="." unique_id=755877957]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_byg57")
+
+[node name="Interaction_Area2D" type="Area2D" parent="." unique_id=112468271]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction_Area2D" unique_id=1876000384]
+position = Vector2(0.5, 15.5)
+shape = SubResource("RectangleShape2D_ewwd3")
+
+[node name="Exit_Marker2D" type="Marker2D" parent="." unique_id=1019649027]
+position = Vector2(0, 35)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1688200067]
+enabled = false
+
+[connection signal="body_entered" from="Interaction_Area2D" to="." method="_on_interaction_area_2d_body_entered"]
+[connection signal="body_exited" from="Interaction_Area2D" to="." method="_on_interaction_area_2d_body_exited"]

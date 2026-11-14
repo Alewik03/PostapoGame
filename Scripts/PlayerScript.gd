@@ -13,6 +13,10 @@ var alive = true
 var battery_level = 100
 var drain_speed = 10
 
+var is_hiding: bool = false
+var current_locker: Node2D = null
+@onready var player_camera: Camera2D = $Camera2D
+
 # Pozostałe zmienne
 @export var rotation_speed = 10.0
 
@@ -20,9 +24,8 @@ var drain_speed = 10
 @onready var legs_sprite: AnimatedSprite2D = $Legs_AnimatedSprite2D
 @onready var flashlight_beam = $Torso_Node2D/FlashlightBeam
 
-
 func _process(delta: float) -> void:
-	if not alive:
+	if not alive or is_hiding:
 		return
 		
 	# Obracamy TYLKO tułów (i podpiętą do niego latarkę) w stronę myszki
@@ -31,13 +34,18 @@ func _process(delta: float) -> void:
 	torso_node.rotation = lerp_angle(torso_node.rotation, target_angle, rotation_speed * delta)
 
 func _input(event: InputEvent) -> void:
-	if not alive:
+	if not alive or is_hiding:
 		return
 	if event.is_action_pressed("Flashlight"):
 		flashlight_beam.visible = !flashlight_beam.visible
 
 func _physics_process(delta: float) -> void:
 	if not alive:
+		return
+		
+	# Blokujemy cały ruch i fizykę na samym początku funkcji, gdy gracz jest w szafce
+	if is_hiding:
+		velocity = Vector2.ZERO
 		return
 		
 	# Sprawdzanie trybu ruchu
@@ -72,10 +80,8 @@ func _physics_process(delta: float) -> void:
 
 func _update_legs(direction: Vector2) -> void:
 	if direction != Vector2.ZERO:
-		# Obracamy nogi w stronę, w którą faktycznie idziemy (WASD)
 		legs_sprite.rotation = direction.angle()
 		
-		# Dopasowujemy prędkość animacji do prędkości chodu/biegu
 		if speed == sprint:
 			legs_sprite.speed_scale = 1.5
 		elif speed == crouch:
@@ -96,3 +102,51 @@ func _on_health_component_died() -> void:
 	alive = false
 	if has_node("AnimationPlayer"):
 		$AnimationPlayer.play("death")
+
+func hide_in_locker(locker_node: Node2D, exit_pos: Vector2, locker_cam: Camera2D) -> void:
+	is_hiding = true
+	current_locker = locker_node
+	velocity = Vector2.ZERO
+	
+	# Gasimy latarkę w szafce, żeby snop światła nie zdradzał pozycji
+	flashlight_beam.visible = false
+	flashlight_beam.enabled = false
+	
+	# Ukrywamy wszystkie części gracza i wyłączamy kolizję
+	$Torso_Node2D/Torso_Sprite2D.visible = false
+	$Legs_AnimatedSprite2D.visible = false
+	$SphericalPlayerView.visible = false
+	$CollisionShape2D.disabled = true
+	
+	# Przenosimy gracza fizycznie do środka szafki
+	global_position = locker_node.global_position
+	
+	# Przełączamy kamery
+	player_camera.enabled = false
+	locker_cam.enabled = true
+	
+	print("Gracz wszedł do szafki")
+
+func unhide_from_locker() -> void:
+	if not is_hiding:
+		return
+		
+	# Wyłączamy kamerę szafki i wracamy do kamery gracza
+	if current_locker:
+		var locker_cam = current_locker.get_node("Camera2D")
+		if locker_cam:
+			locker_cam.enabled = false
+		global_position = current_locker.exit_marker.global_position
+		
+	player_camera.enabled = true
+	
+	# Przywracamy widoczność wszystkich węzłów gracza oraz kolizję
+	$Torso_Node2D/Torso_Sprite2D.visible = true
+	$Legs_AnimatedSprite2D.visible = true
+	$SphericalPlayerView.visible = true
+	$CollisionShape2D.disabled = false
+	
+	is_hiding = false
+	current_locker = null
+	
+	print("Gracz wyszedł z szafki")
